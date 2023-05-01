@@ -223,6 +223,48 @@ public class StatsLibrary {
 		
 	}
 	
+	
+	public double hypergeometricDistribution(int y, int r, int n, int N) {
+		
+		//Combination of (r over y)
+		double firstComb = findCombination(BigInteger.valueOf(r),BigInteger.valueOf(y)).doubleValue();
+		
+		//Combination of (N-r over n-y)
+		double secondComb = findCombination(BigInteger.valueOf(N-r),BigInteger.valueOf(n-y)).doubleValue();
+		
+		//Combination of (N over n)
+		double thirdComb = findCombination(BigInteger.valueOf(N),BigInteger.valueOf(n)).doubleValue();
+		
+		
+		double total = (firstComb * secondComb)/thirdComb;
+		
+		
+		return total;
+	}
+	
+	
+	/**
+	 * Finds the Poisson Distribution of the inputted variables
+	 * @param y is the number of occurences
+	 * @param lambda the 'rate' at which successes occur in a continuous
+	 * approximation to the experiment
+	 * @return the probability of mass for a Poisson experiment
+	 */
+	public double poissonDistribution(double y, int lambda) {
+		
+		double total = 0.0;
+		
+		//e^lambda * lambda^y
+		double numerator = (Math.pow(Math.E, (lambda*-1)))*(Math.pow(lambda, y));
+		// y!
+		double denominator = (findFactorial(BigInteger.valueOf(lambda)).doubleValue());
+		
+		total = numerator * denominator;
+		
+		return total;
+		
+	}
+	
 	/**
 	 * Tests all the methods in the class
 	 * @return confirms that the testing is finished
