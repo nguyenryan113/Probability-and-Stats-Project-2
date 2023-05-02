@@ -8,9 +8,18 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Uses the Salter csv file to smooth the data and outputs a csv file of the results.
+ * @author ryannguyen
+ *
+ */
 public class Smoother {
 	
-	
+	/**
+	 * Reads the csv of the SaltedLinearGraph and uses a window to average each value within the window to make the graph smoother
+	 * @param window the range of averaging around the index
+	 * @throws IOException
+	 */
 	public static void SmoothGraph(int window) throws IOException {
 		
 		
@@ -27,8 +36,6 @@ public class Smoother {
 			reader = new BufferedReader(new FileReader(file));
 			Random rand = new Random();
 			
-			int test = 0;
-			
 			while((readingLine = reader.readLine()) != null) {
 				
 				String[] row = readingLine.split(",");
@@ -43,8 +50,7 @@ public class Smoother {
 
 
 			}
-			System.out.println(saltedData);
-			System.out.println(saltedData.size());
+			
 			for (int i = 1; i < saltedData.size(); i += 2) {
 				
 				int mean;
@@ -52,40 +58,33 @@ public class Smoother {
 				int count = 0;
 				
 				if (i-(window*2) <= 0) {
-					System.out.println("testing: " + test);
+					
 					
 					for(int j = i-(window*2);j < i+(window*2)+1; j+=2) {
 						if (j >= 0) {
-							System.out.println(j);
 							
 							total += Integer.parseInt(saltedData.get(j));
 							count++;
-							System.out.println("total: " + total);
-							System.out.println("count: " + count);
+							
 							
 						}
 						
 					}
-					System.out.println(saltedData);
 					mean = total/count;
 					
 					saltedData.set(i, String.valueOf(mean));
 					count = 0;
 					total=0;
-					test++;
 				}
 				
 				else if(i+(window*2) > saltedData.size()-1) {
-					System.out.println("testing: " + test);
+					
 					
 					for(int j = i-(window*2);j <= saltedData.size()-1; j+=2) {
 						if (j >= 0) {
-							System.out.println(j);
 							
 							total += Integer.parseInt(saltedData.get(j));
 							count++;
-							System.out.println("total: " + total);
-							System.out.println("count: " + count);
 							
 						}
 						
@@ -95,19 +94,14 @@ public class Smoother {
 					saltedData.set(i, String.valueOf(mean));
 					count = 0;
 					total=0;
-					test++;
 				}
 				
 				else {
-					System.out.println("testing: " + test);
 					for (int j = i-(window*2); j< i+(window*2)+1; j+=2) {
-						System.out.println(j);
 						
 						
 						total += Integer.parseInt(saltedData.get(j));
 						count++;
-						System.out.println("total: " + total);
-						System.out.println("count: " + count);
 						
 					}
 					
@@ -116,13 +110,12 @@ public class Smoother {
 					saltedData.set(i, String.valueOf(mean));
 					count = 0;
 					total=0;
-					test++;
+					
 					
 				}
 				
 
 			}
-			System.out.println(saltedData);
 			for(int l = 0; l < saltedData.size(); l+=2) {
 			
 				out.printf("%d, %d\n", Integer.parseInt(saltedData.get(l)), Integer.parseInt(saltedData.get(l+1)));
@@ -138,16 +131,5 @@ public class Smoother {
 		}
 		
 	}
-	
-	
-	
-	public static void main (String[] args) throws IOException{
-		
-		SmoothGraph(3);
-		
-	}
-	
-	
-	
 	
 }

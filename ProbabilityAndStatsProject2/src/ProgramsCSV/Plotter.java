@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-
+/**
+ * Creates the plotter for the equation y=2x+5 and outputs a csv file of the results.
+ * @author ryannguyen
+ *
+ */
 public class Plotter {
 
 	
@@ -34,8 +38,5 @@ public class Plotter {
 		PlotGraph(0, 10, 2, 5);
 		
 	}
-	
-	
-	
 	
 }

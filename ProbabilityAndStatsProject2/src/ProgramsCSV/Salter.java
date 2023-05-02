@@ -8,6 +8,11 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Uses the Plotter's csv file to be salted and outputs a csv file of the results.
+ * @author ryannguyen
+ *
+ */
 public class Salter {
 	
 	
@@ -23,7 +28,7 @@ public class Salter {
 		
 			File saltedCsv = new File("SaltedLinearGraph.csv");
 			PrintWriter out = new PrintWriter(saltedCsv);
-			ArrayList<Integer> tmpArr = new ArrayList<Integer>();
+			ArrayList<Integer> tempArr = new ArrayList<Integer>();
 			reader = new BufferedReader(new FileReader(file));
 			Random rand = new Random();
 			
@@ -34,20 +39,20 @@ public class Salter {
 				
 				for (int i = 1; i < row.length; i += 2) {
 				
-					tmpSalting = Integer.parseInt(row[i].trim()) + rand.nextInt(range + 1);
-					
+					tmpSalting = Integer.parseInt(row[i].trim()) + rand.nextInt(range*2+1) - range;
 					row[i] = String.valueOf(tmpSalting);
 					
 				}
 				
 				for(int i = 0; i < row.length; i++) {
 				
-					tmpArr.add(Integer.parseInt(row[i]));
+					tempArr.add(Integer.parseInt(row[i]));
 					
 				}
 				
-				out.printf("%d, %d\n", tmpArr.get(0), tmpArr.get(1));
-				tmpArr.removeAll(tmpArr);
+			}
+			for(int j = 0; j < tempArr.size(); j+=2) {
+				out.printf("%d, %d\n", tempArr.get(j),tempArr.get(j+1));
 			}
 			out.close();
 		}
@@ -58,16 +63,5 @@ public class Salter {
 		}
 		
 	}
-	
-	
-	
-	public static void main (String[] args) throws IOException{
-		
-		SaltGraph(100);
-		
-	}
-	
-	
-	
 	
 }

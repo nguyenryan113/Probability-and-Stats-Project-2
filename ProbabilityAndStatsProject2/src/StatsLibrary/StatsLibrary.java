@@ -223,6 +223,7 @@ public class StatsLibrary {
 		
 	}
 	
+	//---------------------------------Project 2 Starts Here-------------------------------------------
 	
 	public double hypergeometricDistribution(int y, int r, int n, int N) {
 		
@@ -257,13 +258,24 @@ public class StatsLibrary {
 		//e^lambda * lambda^y
 		double numerator = (Math.pow(Math.E, (lambda*-1)))*(Math.pow(lambda, y));
 		// y!
-		double denominator = (findFactorial(BigInteger.valueOf(lambda)).doubleValue());
-		
-		total = numerator * denominator;
+		double denominator = (findFactorial(BigInteger.valueOf((long) y)).doubleValue());
+		total = numerator / denominator;
 		
 		return total;
 		
 	}
+	/**
+	 * Finds the inequality using Tchebycheff's Theorem
+	 * @param k represents the number of standard deviations from the mean
+	 * @return the inequality
+	 */
+	public double tchebycheffTheorem(double k) {
+		
+		double inequality = 1 - (1/(Math.pow(k, 2)));
+		
+		return inequality;
+	}
+	
 	
 	/**
 	 * Tests all the methods in the class
@@ -271,36 +283,10 @@ public class StatsLibrary {
 	 */
 	public String testAll() {
 		
-		ArrayList<Integer> someNumbers = new ArrayList<>();
 		
-		
-
-		
-		someNumbers.add(5);
-		someNumbers.add(2);
-		someNumbers.add(2);
-		someNumbers.add(20);
-		someNumbers.add(4);
-		someNumbers.add(10);
-		someNumbers.add(3);
-		someNumbers.add(17);
-		someNumbers.add(8);
-		someNumbers.add(8);
-		
-		
-		System.out.println(toString(someNumbers));
-		
-		System.out.println("Average of input: " + findMean(someNumbers));
-	
-		System.out.println("The median is: " + findMedian(someNumbers));
-		System.out.println("The mode is: " + findMode(someNumbers));
-		System.out.println("The standard deviation is: " + standardDeviation(someNumbers, findMean(someNumbers)));
-		
-		System.out.println("The factorial of 50 is: " + findFactorial(BigInteger.valueOf(50)));
-		System.out.println("The permutation is: " + findPermutation(BigInteger.valueOf(2),BigInteger.valueOf(3)));
-		System.out.println("The combination is: " + findCombination(BigInteger.valueOf(9),BigInteger.valueOf(7)));
-		System.out.println("The binomial distribution is : " + binomialDistribution(5,3,.5));
-		System.out.println("The geometric distribution is: " + geometricDistribution(.35,10));
+		System.out.println("The Hypergeometric Distribution of y=2 r=3 n=5 N=10 is: " + hypergeometricDistribution(2,3,5,10));
+		System.out.println("The Poisson Distribution of y=5 lambda=3 is: " + poissonDistribution(5,3));
+		System.out.println("The inequality of Tchebycheff's Theorem for k=5 is: " + tchebycheffTheorem(5));
 		
 		return "Finished Testing";
 		
